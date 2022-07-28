@@ -1,0 +1,74 @@
+@use "../abstracts/functions" as *;
+@use "../abstracts/mixins";
+
+
+.menu {
+  background: var(--white);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display: flex;
+  padding: rem(45px) 2rem;
+  justify-content: end;
+  animation: fadeOutUp;
+  animation-duration: 1s;
+  opacity: 0;
+
+  &__item {
+    & ~ & {
+      margin-left: rem(33px);
+    }
+
+    &:last-child {
+      margin-right: rem(-8px);
+    }
+  }
+
+  &__link {
+    color: var(--black);
+    font-size: rem(11px);
+    font-weight: 700;
+    text-transform: lowercase;
+    position: relative;
+    @include mixins.underline(
+      $top: 1.5rem,
+      $left: 20%,
+      $width: 60%,
+      $height: 2px,
+      $direction: center,
+      $color: var(--black)
+    );
+  }
+
+  // active state
+  &--active {
+    @extend .menu;
+    animation: fadeInDown;
+    animation-duration: 1s;
+    opacity: 1;
+    z-index: 2;
+  }
+
+  // desktop view----------------------------------
+  @include mixins.respond-to("tablet") {
+    opacity: 1;
+    background: transparent;
+    position: initial;
+    padding: 0;
+    width: initial;
+    z-index: 10;
+
+    &__link {
+      color: var(--white);
+      @include mixins.underline(
+        $top: 1.5rem,
+        $left: 20%,
+        $width: 60%,
+        $height: 2px,
+        $direction: center,
+        $color: var(--white)
+      );
+    }
+  }
+}

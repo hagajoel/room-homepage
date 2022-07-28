@@ -1,0 +1,65 @@
+@use "../abstracts/functions" as *;
+@use "../abstracts/mixins";
+/*--------------------------------------------------------*\
+    #products
+\*---------------------------------------------------------*/
+
+.product {
+  &__wrapper {
+    display: grid;
+    grid-template:
+      [start-row1] "dark" 1fr [end-row1]
+      [start-row2] "article" 0.1fr [end-row2]
+      [start-row3] "light" 1fr [end-row3] / 1fr;
+    gap: rem(33px) 0;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    &--dark {
+      grid-area: dark;
+    }
+
+    &--light {
+      grid-area: light;
+    }
+  }
+
+  &__info {
+    margin: 0 0 rem(21px) rem(7px);
+    grid-area: article;
+  }
+
+  // tablet view --------------------------------------
+  @include mixins.respond-to("tablet") {
+    height: calc(100vh - 34rem);
+    &__wrapper {
+      grid-template:
+        [start-row1] "dark light" 1fr [end-row1]
+        [start-row2] "article article" 30%[end-row2]
+        / 1fr 1fr;
+      gap: 1rem 0;
+      height: 100%;
+    }
+
+    &__info {
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+  }
+
+  // laptop view --------------------------------------
+  @include mixins.respond-to("laptop") {
+    &__wrapper {
+      grid-template: [row1-start] "dark article light" auto [row1-end] / 0.85fr 1.2fr 0.9fr;
+    }
+
+    &__info {
+      text-align: left;
+      margin: 2.5rem 3rem;
+    }
+  }
+}

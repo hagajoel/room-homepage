@@ -1,0 +1,64 @@
+@use "../abstracts/functions" as *;
+@use "../abstracts/mixins";
+
+
+.hamburger-nav {
+  @include mixins.flexify($al-con: center, $js-con: center);
+  width: rem(21px);
+  height: rem(24px);
+  border: none;
+  position: relative;
+  z-index: 4;
+
+  &__bar,
+  &::before,
+  &::after {
+    transition: all 400ms ease-in-out;
+    width: 100%;
+    height: rem(2px);
+    background: var(--white);
+  }
+
+  &__bar {
+    display: inline-block;
+  }
+
+  // top and bottom bar
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  &::before {
+    top: rem(5px);
+  }
+  &::after {
+    top: rem(17px);
+  }
+
+  &--active {
+    @extend .hamburger-nav;
+
+    .hamburger-nav__bar {
+      transform: scale(0);
+      transform-origin: center;
+      transition: all 400ms ease-in-out;
+    }
+
+    &::before,
+    &::after {
+      background: var(--dark-gray);
+    }
+
+    &::before,
+    &::after {
+      transform: rotate(45deg) translate(5px, 4px);
+    }
+
+    &::after {
+      transform: rotate(-45deg) translate(4px, -4px);
+    }
+  }
+}

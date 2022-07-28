@@ -1,0 +1,19 @@
+@use "../abstracts/functions" as *;
+
+
+.article {
+  &__heading {
+    font-size: rem(13px);
+    letter-spacing: rem(4px);
+    text-transform: uppercase;
+    margin-bottom: rem(13px);
+    margin-top: rem(28px);
+  }
+
+  &__text {
+    font-weight: 600;
+    font-size: rem(11.3px);
+    line-height: 1.77;
+    color: var(--dark-gray);
+  }
+}

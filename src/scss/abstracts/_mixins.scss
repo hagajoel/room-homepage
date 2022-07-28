@@ -1,0 +1,74 @@
+@use "./variables";
+@use "./functions";
+
+@mixin flexify($al-con: center, $js-con: space-between, $flex-d: row) {
+  display: flex;
+  align-items: $al-con;
+  justify-content: $js-con;
+  flex-direction: $flex-d;
+}
+
+@mixin respond-to($breakPoint) {
+  @media screen and (min-width: map-get($map:variables.$breakPoints,$key:$breakPoint)) {
+    @content;
+  }
+}
+
+@mixin underline(
+  $top: 1rem,
+  $left: 0,
+  $width: 100%,
+  $height: 2px,
+  $color: white,
+  $direction: center
+) {
+  &::after {
+    content: "";
+    position: absolute;
+    top: $top;
+    left: $left;
+    width: $width;
+    height: $height;
+    background: $color;
+    transform: scale(0);
+    transform-origin: $direction;
+    transition: all 400ms ease-in-out;
+  }
+
+  &:hover {
+    &::after {
+      transform: scale(1);
+    }
+  }
+}
+
+@mixin interpolate(
+  $properties,
+  $min-screen,
+  $max-screen,
+  $min-value,
+  $max-value
+) {
+  & {
+    @each $property in $properties {
+      #{$property}: $min-value;
+    }
+
+    @media screen and (min-width: $min-screen) {
+      @each $property in $properties {
+        #{$property}: functions.calc-interpolation(
+          $min-screen,
+          $min-value,
+          $max-screen,
+          $max-value
+        );
+      }
+    }
+
+    @media screen and (min-width: $max-screen) {
+      @each $property in $properties {
+        #{$property}: $max-value;
+      }
+    }
+  }
+}
