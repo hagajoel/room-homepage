@@ -2,7 +2,7 @@
 
 This is a homepage for Room (furniture website) with special feature: Slider.
 
-Live preview [here]()
+Live preview [here](https://room-homepage-react.netlify.app/)
 
 ## Technologies
 
